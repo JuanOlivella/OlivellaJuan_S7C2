@@ -10,7 +10,7 @@ t = datos[:,0]  # Datos del tiempo
 
 q = datos[:,1] # Datos de carga
 
-iteraciones = 5000 # PARA MAYOR PRECISION AUMENTE EL VALOR DE LAS ITERACIONES
+iteraciones = 10000 # PARA MAYOR PRECISION AUMENTE EL VALOR DE LAS ITERACIONES
 
 
 # Define la funcion de maxima verosimilitud
@@ -92,16 +92,28 @@ maxR = np.amax(caminoR[maxVer])
 
 maxC = np.amax(caminoC[maxVer])
 
+RR = np.str(np.round(maxR,3))
+
+R1 = "El valor de R optimo es:" + RR
+
+CC = np.str(np.round(maxC,3))
+
+C1 = "El valor de C optimo es:" + CC
+
+QMAX = np.round(10*maxC,3)
+
 
 # Grafica los datos originales y el modelo estimado. Los valores optimos de R y C se imprimen en la pantalla
 
-print("El valor de la resistencia y de la capacitancia para el modelo son respectivamente:", maxR, maxC)
+print("El valor de la resistencia, de la capacitancia y del Qmax para el modelo son respectivamente:", RR, CC, QMAX)
 
 
-fig, ax = plt.subplots()
+fig1 = plt.figure()
 plt.title("Carga del condensador en funcion del tiempo")
-ax.scatter(t,q, s = 2, label ="Observado")
-ax.plot(t, carga(t, maxR, maxC), c = "r",label ="Modelo")
+plt.scatter(t,q, s = 2, label ="Observado")
+plt.text(150,50, R1)
+plt.text(150,40, C1)
+plt.plot(t, carga(t, maxR, maxC), c = "r",label ="Modelo")
 plt.legend(loc = 0)
 plt.xlabel("$t$")
 plt.ylabel("$q(t)$")
